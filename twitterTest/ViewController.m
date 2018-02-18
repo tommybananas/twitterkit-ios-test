@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import <TwitterKit/TwitterKit.h>
 
 @interface ViewController ()
 
@@ -25,5 +26,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)dotwitter:(id)sender {
+    TWTRComposer *composer = [[TWTRComposer alloc] init];
+    
+    [composer setText:@"test"];
+    [composer setImage:[UIImage imageNamed:@"test"]];
+    
+    // Called from a UIViewController
+    [composer showFromViewController:self completion:^(TWTRComposerResult result) {
+        if (result == TWTRComposerResultCancelled) {
+            NSLog(@"Tweet composition cancelled");
+        }
+        else {
+            NSLog(@"Sending Tweet!");
+        }
+    }];
+}
 
 @end
